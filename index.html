@@ -7,14 +7,18 @@
 </head>
 <body>
     <header>Sushi Plate Calculator</header>
-    <div>
+    <div ng-controller="SushiPlateCtrl">
         <ul class="plates">
-            <li class="redPlate">Red Plate</li>
-            <li class="bluePlate">Blue Plate</li>
-            <li class="yellowPlate">Yellow Plate</li>
+            <li ng-repeat="plate in plates">
+              <!-- <input type="number" name="input" ng-model="plate.count" min="0" max="99" required> -->
+              {{ plate.name }}
+              {{ plate.count }}
+              <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
+              <button ng-model="plate.count" ng-click="changeCount(plate, -1)">-</button>
+            </li>
         </ul>
-        <p class="totalPlates">Total Plates: {{ totalPlates }}</p>
-        <p class="totalPrice">Total Price: {{ totalPrice }}</p>
+        <p class="totalPlates">Total Plates: {{ getTotalPlates() }}</p>
+        <p class="totalPrice">Total Price: {{ getTotalPrice() | currency:'£'}}</p>
     </div>
 
     <script type="text/javascript" src="js/libs/angular.min.js"></script>

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Sushi Plate Calculator</title>
+    <link href='http://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -10,19 +11,17 @@
     <div ng-controller="SushiPlateCtrl">
         <ul class="plates">
             <li ng-repeat="plate in plates" title="{{ plate.name }} plate - {{ plate.price | currency:'£' }}">
-                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-                    <title>{{ plate.name }} plate - {{ plate.price | currency:'£' }}</title>
-                    <circle cx="22" cy="22" r="20" stroke="black" stroke-width="2" fill="{{ plate.color }}"/>
-                    <text x="18" y="27" fill="black">{{ plate.count }}</text>
-                </svg>
-                <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
-                <button ng-model="plate.count" ng-click="changeCount(plate, -1)" class="disabled-{{ plate.count <= 0 }}">-</button>
+                <span class="plate {{ plate.name | lowercase }}Plate">{{ plate.count }}</span>
+                <form>
+                    <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
+                    <br>
+                    <button ng-model="plate.count" ng-click="changeCount(plate, -1)" class="disabled-{{ plate.count <= 0 }}">-</button>
+                </form>
             </li>
         </ul>
-        <p class="totalPlates">Total Plates: {{ getTotalPlates() }}</p>
-        <p class="totalPrice">Total Price: {{ getTotalPrice() | currency:'£'}}</p>
+        <p class="total">Total Plates: <strong>{{ getTotalPlates() }}</strong> | Total Price: <strong>{{ getTotalPrice() | currency:'£'}}</strong></p>
     </div>
-
+    <footer>Built with Angular.js and a love for sushi</footer>
     <script type="text/javascript" src="js/libs/angular.min.js"></script>
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
     <script type="text/javascript" src="js/app.js"></script>

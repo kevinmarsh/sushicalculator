@@ -1,26 +1,115 @@
-// %displayInline { // Hack for IE
-//     display: inline-block;
-//     *display: inline;
-//     zoom: 1;
-// }
+%displayInline { // Hack for IE
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+}
+@mixin dishColor($col) {
+    background: $col;
+    color: darken($col, 25%);
+    border: 2px solid darken($col, 25%);
+}
+$bg: #f37021;
+
+body {
+    margin: 8px auto;
+    background: $bg;
+    text-align: center;
+}
+header {
+    font: bold 32px 'Kaushan Script', cursive;
+    font-style: italic;
+    color: #D82053;
+    // Text shadow from http://css-tricks.com/adding-stroke-to-web-text/
+    -webkit-text-stroke: 1px black; // WebKit (Safari/Chrome) Only
+    text-shadow:
+        3px 3px 0 #061B37,
+        // Simulated effect for Firefox and Opera and nice enhancement for WebKit
+        -1px -1px 0 #061B37,
+        1px -1px 0 #061B37,
+        -1px  1px 0 #061B37,
+        1px  1px 0 #061B37;
+}
+body > div {
+    width: 320px;
+    margin: 0 auto;
+    padding: 8px;
+    background: white;
+    border: 3px darken($bg, 20%) solid;
+    border-radius: 6px;
+}
+
 .plates {
     list-style: none;
     margin: 0;
     padding: 0;
-    // .plateName {
-    //     @extend %displayInline;
-    //     width: 80px;
-    // }
-    // .plateCount {
-    //     @extend %displayInline;
-    //     width: 20px;
-    // }
+    li {
+        @extend %displayInline;
+        width: 140px;
+        margin: 12px 2px;
+    }
+    .plate {
+        @extend %displayInline;
+        height: 45px;
+        width: 45px;
+        margin: 4px;
+        -webkit-border-radius: 25px; /* one half of ( (border * 2) + height + padding ) */
+           -moz-border-radius: 25px;
+                border-radius: 25px;
+        box-shadow: 1px 1px 1px black;
+        font: bold 24px/44px Helvetica, Verdana, Tahoma;
+        text-shadow:
+            -1px -1px 2px rgba(255, 255, 255, 0.4),
+             1px -1px 2px rgba(255, 255, 255, 0.4),
+            -1px 1px 2px rgba(255, 255, 255, 0.4),
+             1px 1px 2px rgba(255, 255, 255, 0.4);
+    }
+    .greenPlate {
+        @include dishColor(#b2d34a);
+    }
+    .bluePlate {
+        @include dishColor(#00abea);
+    }
+    .purplePlate {
+        @include dishColor(#662d91);
+    }
+    .orangePlate {
+        @include dishColor(#f37021);
+    }
+    .pinkPlate {
+        @include dishColor(#c80542);
+    }
+    .greyPlate {
+        @include dishColor(#8cabad);
+    }
+    form {
+        @extend %displayInline;
+        vertical-align: middle;
+        button {
+            width: 22px;
+            height: 22px;
+            margin: 2px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            &.disabled-true {
+                opacity: 0.1;
+                cursor: default;
+            }
+        }
+    }
 }
-.disabled-true {
-    opacity: 0.1;
+
+.total {
+    font-size: 20px;
+    margin: 0;
 }
-svg {
-    width: 50px;
-    height: 50px;
-    vertical-align: middle;
+
+footer {
+    padding: 4px;
+    opacity: 0.6;
+    color: darken($bg, 20%);
+    font-size: 12px;
+    &:hover {
+        opacity: 1;
+    }
 }

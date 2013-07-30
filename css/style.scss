@@ -9,11 +9,24 @@
     border: 2px solid darken($col, 25%);
 }
 $bg: #f37021;
+$text: #2F2F2F;
 
 body {
     margin: 8px auto;
     background: $bg;
+    color: $text;
     text-align: center;
+}
+a,
+a:visited {
+    color: $text;
+    text-decoration: none;
+    border-bottom: 1px dotted $text;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 header {
     font: bold 32px 'Kaushan Script', cursive;
@@ -29,6 +42,17 @@ header {
         -1px  1px 0 #061B37,
         1px  1px 0 #061B37;
 }
+nav {
+    li {
+        @extend %displayInline;
+        margin: 4px 0;
+        padding: 0 8px;
+        border-left: 1px solid $text;
+        &:first-child {
+            border-left: none;
+        }
+    }
+}
 body > div {
     width: 320px;
     margin: 0 auto;
@@ -39,9 +63,7 @@ body > div {
 }
 
 .plates {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+
     li {
         @extend %displayInline;
         width: 140px;
@@ -52,7 +74,8 @@ body > div {
         height: 45px;
         width: 45px;
         margin: 4px;
-        -webkit-border-radius: 25px; /* one half of ( (border * 2) + height + padding ) */
+        // For circle, border radius is ((border * 2) + height + padding)/2
+        -webkit-border-radius: 25px;
            -moz-border-radius: 25px;
                 border-radius: 25px;
         box-shadow: 1px 1px 1px black;
@@ -104,6 +127,19 @@ body > div {
     margin: 0;
 }
 
+.priceList {
+    @extend %displayInline;
+    margin: 0 auto;
+    list-style: none;
+    li {
+        text-align: left;
+        span {
+            @extend %displayInline;
+            width: 90px;
+        }
+    }
+}
+
 footer {
     padding: 4px;
     opacity: 0.6;
@@ -111,8 +147,8 @@ footer {
     font-size: 12px;
     a,
     a:visited {
+        border-bottom: none;
         color: darken($bg, 20%);
-        text-decoration: none;
     }
     &:hover {
         opacity: 1;

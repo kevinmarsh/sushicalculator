@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="sushiApp">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -10,19 +10,14 @@
 </head>
 <body>
     <header>Sushi Plate Calculator</header>
-    <div ng-controller="SushiPlateCtrl">
-        <ul class="plates">
-            <li ng-repeat="plate in plates" title="{{ plate.name }} plate - {{ plate.price | currency:'£' }}" ng-cloak>
-                <span class="plate {{ plate.name | lowercase }}Plate" ng-click="changeCount(plate, 1)">{{ plate.count }}</span>
-                <form>
-                    <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
-                    <br>
-                    <button ng-model="plate.count" ng-click="changeCount(plate, -1)" class="disabled-{{ plate.count <= 0 }}">-</button>
-                </form>
-            </li>
+    <nav>
+        <ul>
+            <li><a href="#/">Calculator</a></li>
+            <li><a href="#/about">About</a></li>
+            <li><a href="#/prices">Prices</a></li>
         </ul>
-        <p class="total">Total Plates: <strong>{{ getTotalPlates() }}</strong> | Total Price: <strong>{{ getTotalPrice() | currency:'£'}}</strong></p>
-    </div>
+    </nav>
+    <div ng-view></div>
     <footer>Built with <a href="http://angularjs.org/">AngularJS</a> and a love for <a href="http://www.yosushi.com/">sushi</a>.</footer>
     <script type="text/javascript" src="js/libs/angular.min.js"></script>
     <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->

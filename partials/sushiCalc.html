@@ -1,0 +1,13 @@
+<ul class="plates">
+    <li ng-repeat="plate in plates" title="{{ plate.name }} plate - {{ plate.price | currency:'£' }}" ng-cloak>
+        <span class="plate {{ plate.name | lowercase }}Plate" ng-click="changeCount(plate, 1)">{{ plate.count }}</span>
+        <form>
+            <!-- TODO: these buttons aren't lined up -->
+            <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
+            <br>
+            <button ng-model="plate.count" ng-click="changeCount(plate, -1)" class="disabled-{{ plate.count <= 0 }}">-</button>
+        </form>
+    </li>
+</ul>
+<p class="total">Total Plates: <strong>{{ getTotalPlates() }}</strong> | Total Price: <strong>{{ getTotalPrice() | currency:'£'}}</strong></p>
+<button ng-click="clearPlates()">Clear Plates</button>

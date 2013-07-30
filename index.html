@@ -9,12 +9,14 @@
     <header>Sushi Plate Calculator</header>
     <div ng-controller="SushiPlateCtrl">
         <ul class="plates">
-            <li ng-repeat="plate in plates">
-              <!-- <input type="number" name="input" ng-model="plate.count" min="0" max="99" required> -->
-              {{ plate.name }}
-              {{ plate.count }}
-              <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
-              <button ng-model="plate.count" ng-click="changeCount(plate, -1)">-</button>
+            <li ng-repeat="plate in plates" title="{{ plate.name }} plate - {{ plate.price | currency:'£' }}">
+                <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                    <title>{{ plate.name }} plate - {{ plate.price | currency:'£' }}</title>
+                    <circle cx="22" cy="22" r="20" stroke="black" stroke-width="2" fill="{{ plate.color }}"/>
+                    <text x="18" y="27" fill="black">{{ plate.count }}</text>
+                </svg>
+                <button ng-model="plate.count" ng-click="changeCount(plate, 1)">+</button>
+                <button ng-model="plate.count" ng-click="changeCount(plate, -1)" class="disabled-{{ plate.count <= 0 }}">-</button>
             </li>
         </ul>
         <p class="totalPlates">Total Plates: {{ getTotalPlates() }}</p>
@@ -22,9 +24,7 @@
     </div>
 
     <script type="text/javascript" src="js/libs/angular.min.js"></script>
-<!--
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
--->
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script> -->
     <script type="text/javascript" src="js/app.js"></script>
 </body>
 </html>

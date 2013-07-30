@@ -1,0 +1,26 @@
+// %displayInline { // Hack for IE
+//     display: inline-block;
+//     *display: inline;
+//     zoom: 1;
+// }
+.plates {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    // .plateName {
+    //     @extend %displayInline;
+    //     width: 80px;
+    // }
+    // .plateCount {
+    //     @extend %displayInline;
+    //     width: 20px;
+    // }
+}
+.disabled-true {
+    opacity: 0.1;
+}
+svg {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+}

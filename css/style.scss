@@ -100,7 +100,7 @@ body > div {
 }
 
 .total {
-    font-size: 20px;
+    font-size: 18px;
     margin: 0;
 }
 
@@ -109,6 +109,11 @@ footer {
     opacity: 0.6;
     color: darken($bg, 20%);
     font-size: 12px;
+    a,
+    a:visited {
+        color: darken($bg, 20%);
+        text-decoration: none;
+    }
     &:hover {
         opacity: 1;
     }

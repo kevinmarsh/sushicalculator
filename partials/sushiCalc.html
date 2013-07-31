@@ -1,5 +1,5 @@
 <ul class="plates">
-    <li ng-repeat="plate in plates" title="{{ plate.name }} plate - {{ plate.price | currency:'£' }}" ng-cloak>
+    <li ng-repeat="plate in plates | orderBy: 'price'" title="{{ plate.name }} plate - {{ plate.price | currency:'£' }}" ng-cloak>
         <span class="plate {{ plate.name | lowercase }}Plate" ng-click="changeCount(plate, 1)">{{ plate.count }}</span>
         <form>
             <!-- TODO: these buttons aren't lined up -->

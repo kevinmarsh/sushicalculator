@@ -14,10 +14,22 @@ sushiApp.config( function($routeProvider){
             controller: 'SushiPlateCtrl',
             templateUrl: 'partials/prices.html'
         })
+        .when('/prices', {
+            controller: 'SushiPlateCtrl',
+            templateUrl: 'partials/prices.html'
+        })
+        .when('/highscores', {
+            controller: 'HighScoreCtrl',
+            templateUrl: 'partials/highscores.html'
+        })
+        .when('/highscores/save', {
+            controller: 'HighScoreCtrl',
+            templateUrl: 'partials/saveHighscore.html'
+        })
         .otherwise({redirectTo: '/'});
 });
 
-sushiApp.controller('SushiPlateCtrl', function($scope, angularFire) {
+sushiApp.controller('SushiPlateCtrl', function($scope, angularFire, $location) {
     var url = 'https://bbd.firebaseio.com/sushiCalulator/plates';
     var promise = angularFire(url, $scope, 'plates', []);
     promise.then(function() {
@@ -36,6 +48,7 @@ sushiApp.controller('SushiPlateCtrl', function($scope, angularFire) {
             return totalPrice;
         };
         $scope.changeCount = function(plate, x) {
+            // To ensure that the count doesn't drop below 0
             if (plate.count + x >= 0) {
                 plate.count += x;
             }
@@ -45,13 +58,27 @@ sushiApp.controller('SushiPlateCtrl', function($scope, angularFire) {
                 $scope.plates[i].count = 0;
             }
         }
+        $scope.savePlates = function() {
+            localStorage.setItem('score', $scope.getTotalPrice());
+            $location.path('/highscores/save');
+        }
     });
 });
 
-sushiApp.controller('HighScoreCtrl', function($scope, angularFire) {
+sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
     var url = 'https://bbd.firebaseio.com/sushiCalulator/highscore';
     var promise = angularFire(url, $scope, 'highscores', []);
     promise.then(function() {
-        // TODO: save to highscore, reset high scores
+        $scope.newHighscore = {
+            score: parseFloat(localStorage.getItem('score')),
+            name: '',
+            people: 2,  // TODO: Validate that this is never < 1
+            date: new Date(),
+            location: ''
+        }
+        $scope.save = function(newScore) {
+            $scope.highscores.push(newScore);
+            $location.path('/highscores');
+        }
     });
 });

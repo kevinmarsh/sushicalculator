@@ -1,0 +1,12 @@
+<form name="form" class="css-form highscoreForm" novalidate>
+    <label for="hScore">Bill</label>
+    <input type="text" ng-model="newHighscore.score" name="hScore" id="hScore" required disabled /><br />
+    <label for="hName">Name(s)</label>
+    <input type="text" ng-model="newHighscore.name" name="hName" id="hName" placeholder="Who was there?" required /><br />
+    <label for="hPeople"># of people</label>
+    <input type="number" ng-model="newHighscore.people" name="hPeople" id="hPeople" required/><br />
+    <label for="hLocation">Location</label>
+    <input type="text" ng-model="newHighscore.location" name="hLocation" id="hLocation" placeholder="Where are you?" /><br />
+
+    <button ng-click="save(newHighscore)" ng-disabled="form.$invalid || isUnchanged(newHighscore)">SAVE</button>
+</form>

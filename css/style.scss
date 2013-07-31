@@ -140,6 +140,35 @@ body > div {
     }
 }
 
+.highscores {
+    width: 100%;
+    font-size: 12px;
+    tr:first-child {
+        font-weight: bold;
+        border-bottom: 1px solid $text;
+    }
+    .highscoreName,
+    .highscoreLocation {
+        @extend %displayInline;
+        width: 60px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+.highscoreForm {
+    @extend %displayInline;
+    margin: 0 auto;
+    text-align: left;
+    label {
+        @extend %displayInline;
+        width: 80px;
+        &:after {
+            content: ':';
+        }
+    }
+}
+
 footer {
     padding: 4px;
     opacity: 0.6;

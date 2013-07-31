@@ -1,0 +1,18 @@
+<table class="highscores">
+    <tr>
+        <th>Rank</th>
+        <th>Cost</th>
+        <th>Name</th>
+        <th>People</th>
+        <th>Date</th>
+        <th>Location</th>
+    </tr>
+    <tr ng-repeat="highscore in highscores | orderBy: '-score' | limitTo: 10">
+        <td>{{$index + 1}}</td>
+        <td>{{ highscore.score | currency:'£' }}</td>
+        <td class="highscoreName" title="{{ highscore.name }}">{{ highscore.name }}</td>
+        <td>{{ highscore.people }}</td>
+        <td>{{ highscore.date | date:'dd/MM/yy' }}</td>
+        <td class="highscoreLocation" title="{{ highscore.location }}">{{ highscore.location }}</td>
+    </tr>
+</table>

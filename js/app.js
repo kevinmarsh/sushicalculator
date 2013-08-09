@@ -77,7 +77,7 @@ sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
     $scope.loading = true;
     promise.then(function() {
         $scope.newHighscore = {
-            score: parseFloat(localStorage.getItem('score')),
+            score: parseFloat(localStorage.getItem('score')).toFixed(2),
             name: '',
             people: 2,  // TODO: Validate that this is never < 1
             date: new Date(),

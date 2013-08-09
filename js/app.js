@@ -60,8 +60,7 @@ sushiApp.controller('SushiPlateCtrl', function($scope, localStorageService, $loc
     };
     $scope.clearPlates = function() {
         for (var i = 0, length = $scope.plates.length; i < length; i++) {
-            $scope.plates[i].count = 0;
-            localStorageService.add($scope.plates[i].name.toLowerCase() + 'Count', 0)
+            localStorageService.add($scope.plates[i].name.toLowerCase() + 'Count', $scope.plates[i].count = 0)
 
         }
     };
@@ -74,6 +73,7 @@ sushiApp.controller('SushiPlateCtrl', function($scope, localStorageService, $loc
 sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
     var url = 'https://bbd.firebaseio.com/sushiCalulator/highscore';
     var promise = angularFire(url, $scope, 'highscores', []);
+    $scope.loading = true;
     promise.then(function() {
         $scope.newHighscore = {
             score: parseFloat(localStorage.getItem('score')),
@@ -86,5 +86,6 @@ sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
             $scope.highscores.push(newScore);
             $location.path('/highscores');
         };
+        $scope.loading = false;
     });
 });

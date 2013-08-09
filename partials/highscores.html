@@ -1,4 +1,7 @@
-<table class="highscores">
+<div class="spinner" ng-show="loading">
+    <img src="img/ajax-loader.gif" alt="Loading ...">
+</div>
+<table class="highscores" ng-hide="loading">
     <tr>
         <th>Rank</th>
         <th>Cost</th>

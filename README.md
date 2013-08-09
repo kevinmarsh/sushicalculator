@@ -1,4 +1,4 @@
 Sushi Calculator - AngularJS
 ============================
 
-Just a simple AngularJS app I built to try out Angular and NoSQL, the backend is hosted on Firebase but may move just to local storage.
+This is a basic app built to explore the AngularJS framework, firebase and to generally help keep track of spending at certain sushi restaurants.

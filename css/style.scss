@@ -29,18 +29,23 @@ ul {
     padding: 0;
 }
 header {
-    font: bold 32px 'Kaushan Script', cursive;
-    font-style: italic;
-    color: #D82053;
-    // Text shadow from http://css-tricks.com/adding-stroke-to-web-text/
-    -webkit-text-stroke: 1px black; // WebKit (Safari/Chrome) Only
-    text-shadow:
-        3px 3px 0 #061B37,
-        // Simulated effect for Firefox and Opera and nice enhancement for WebKit
-        -1px -1px 0 #061B37,
-        1px -1px 0 #061B37,
-        -1px  1px 0 #061B37,
-        1px  1px 0 #061B37;
+    a,
+    a:visited,
+    a:hover {
+        border-bottom: none;
+        font: bold 32px 'Kaushan Script', cursive;
+        font-style: italic;
+        color: #D82053;
+        // Text shadow from http://css-tricks.com/adding-stroke-to-web-text/
+        -webkit-text-stroke: 1px black; // WebKit (Safari/Chrome) Only
+        text-shadow:
+            3px 3px 0 #061B37,
+            // Simulated effect for Firefox and Opera and nice enhancement for WebKit
+            -1px -1px 0 #061B37,
+            1px -1px 0 #061B37,
+            -1px  1px 0 #061B37,
+            1px  1px 0 #061B37;
+    }
 }
 nav {
     li {

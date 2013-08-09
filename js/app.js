@@ -1,4 +1,4 @@
-var sushiApp = angular.module('sushiApp', ['firebase']);
+var sushiApp = angular.module('sushiApp', ['firebase', 'LocalStorageModule']);
 
 sushiApp.config( function($routeProvider){
     // TODO: add html5 links --> $locationProvider.html5Mode(true)
@@ -29,40 +29,46 @@ sushiApp.config( function($routeProvider){
         .otherwise({redirectTo: '/'});
 });
 
-sushiApp.controller('SushiPlateCtrl', function($scope, angularFire, $location) {
-    var url = 'https://bbd.firebaseio.com/sushiCalulator/plates';
-    var promise = angularFire(url, $scope, 'plates', []);
-    promise.then(function() {
-        $scope.getTotalPlates = function() {
-            var totalPlates = 0;
-            for (var i = 0, length = $scope.plates.length; i < length; i++) {
-                totalPlates += $scope.plates[i].count;
-            }
-            return totalPlates;
-        };
-        $scope.getTotalPrice = function() {
-            var totalPrice = 0;
-            for (var i = 0, length = $scope.plates.length; i < length; i++) {
-                totalPrice += $scope.plates[i].price * $scope.plates[i].count;
-            }
-            return totalPrice;
-        };
-        $scope.changeCount = function(plate, x) {
-            // To ensure that the count doesn't drop below 0
-            if (plate.count + x >= 0) {
-                plate.count += x;
-            }
-        };
-        $scope.clearPlates = function() {
-            for (var i = 0, length = $scope.plates.length; i < length; i++) {
-                $scope.plates[i].count = 0;
-            }
+sushiApp.controller('SushiPlateCtrl', function($scope, localStorageService, $location) {
+    $scope.plates = [
+        {name: 'Green', price: 1.90, count: parseInt(localStorageService.get('greenCount') || 0)},
+        {name: 'Blue', price: 2.50, count: parseInt(localStorageService.get('blueCount') || 0)},
+        {name: 'Purple', price: 3.10, count: parseInt(localStorageService.get('purpleCount') || 0)},
+        {name: 'Orange', price: 3.60, count: parseInt(localStorageService.get('orangeCount') || 0)},
+        {name: 'Pink', price: 4.10, count: parseInt(localStorageService.get('pinkCount') || 0)},
+        {name: 'Grey', price: 5.00, count: parseInt(localStorageService.get('greyCount') || 0)}
+    ];
+    $scope.getTotalPlates = function() {
+        var totalPlates = 0;
+        for (var i = 0, length = $scope.plates.length; i < length; i++) {
+            totalPlates += $scope.plates[i].count;
         }
-        $scope.savePlates = function() {
-            localStorage.setItem('score', $scope.getTotalPrice());
-            $location.path('/highscores/save');
+        return totalPlates;
+    };
+    $scope.getTotalPrice = function() {
+        var totalPrice = 0;
+        for (var i = 0, length = $scope.plates.length; i < length; i++) {
+            totalPrice += $scope.plates[i].price * $scope.plates[i].count;
         }
-    });
+        return totalPrice;
+    };
+    $scope.changeCount = function(plate, x) {
+        // To ensure that the count doesn't drop below 0
+        if (plate.count + x >= 0) {
+            localStorageService.add(plate.name.toLowerCase() + 'Count', parseInt(plate.count += x));
+        }
+    };
+    $scope.clearPlates = function() {
+        for (var i = 0, length = $scope.plates.length; i < length; i++) {
+            $scope.plates[i].count = 0;
+            localStorageService.add($scope.plates[i].name.toLowerCase() + 'Count', 0)
+
+        }
+    };
+    $scope.savePlates = function() {
+        localStorage.setItem('score', $scope.getTotalPrice());
+        $location.path('/highscores/save');
+    };
 });
 
 sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
@@ -75,10 +81,10 @@ sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
             people: 2,  // TODO: Validate that this is never < 1
             date: new Date(),
             location: ''
-        }
+        };
         $scope.save = function(newScore) {
             $scope.highscores.push(newScore);
             $location.path('/highscores');
-        }
+        };
     });
 });

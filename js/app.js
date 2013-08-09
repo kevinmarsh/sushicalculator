@@ -68,6 +68,7 @@ sushiApp.controller('SushiPlateCtrl', function($scope, localStorageService, $loc
         localStorage.setItem('score', $scope.getTotalPrice());
         $location.path('/highscores/save');
     };
+    angular.element(document).scope().noHTML5 = typeof(Storage) === "undefined";
 });
 
 sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
@@ -88,4 +89,6 @@ sushiApp.controller('HighScoreCtrl', function($scope, angularFire, $location) {
         };
         $scope.loading = false;
     });
+    angular.element(document).scope().noHTML5 = typeof(Storage) === "undefined";
 });
+
